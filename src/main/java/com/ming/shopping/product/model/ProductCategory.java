@@ -18,4 +18,20 @@ public enum ProductCategory {
     RING("반지");
 
     private final String desc;
+
+    public boolean isPants() {
+        return this == PANTS;
+    }
+
+    public boolean isHat() {
+        return this == HAT;
+    }
+
+    public boolean isBag() {
+        return this == BAG;
+    }
+
+    public boolean isShoes() {
+        return this == SHOES;
+    }
 }

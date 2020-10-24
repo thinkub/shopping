@@ -10,10 +10,27 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ProductSaleType {
-    NONE("단품상품", ProductSaleConditionType.NONE),
+    SINGLE("단품상품", ProductSaleConditionType.NONE),
     ONE_PLUS_ONE("1 + 1 상품", ProductSaleConditionType.NONE),
     BUNDLE("묶음상품", ProductSaleConditionType.AND),
     SALE_OPTION("추가 구매시 할인 상품", ProductSaleConditionType.OR);
+
     private final String desc;
     private final ProductSaleConditionType saleConditionType;
+
+    public boolean isBundle() {
+        return this == BUNDLE;
+    }
+
+    public boolean isSingle() {
+        return this == SINGLE;
+    }
+
+    public boolean isSaleOption() {
+        return this == SALE_OPTION;
+    }
+
+    public boolean isSingleForCreate() {
+        return this == SINGLE || this == ONE_PLUS_ONE;
+    }
 }
