@@ -1,5 +1,7 @@
 package com.ming.shopping.product.entity;
 
+import com.ming.shopping.product.common.BooleanYnConverter;
+import com.ming.shopping.product.model.Product;
 import com.ming.shopping.product.model.ProductCategory;
 import com.ming.shopping.product.model.ProductSaleType;
 import lombok.Getter;
@@ -9,7 +11,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @author by Ming(thinkub0219@gmail.com) on 2020. 10. 24..
@@ -40,18 +41,23 @@ public class ProductEntity {
     @Column(name = "price")
     private long price;
 
+    @Column(name = "display_yn")
+    @Convert(converter = BooleanYnConverter.class)
+    private boolean display;
+
     @CreatedDate
     @Column(name = "register_datetime")
     private LocalDateTime registerDatetime;
 
-    private ProductEntity(String productName, ProductCategory category, ProductSaleType saleType, long price) {
-        this.productName = productName;
-        this.category = category;
-        this.saleType = saleType;
-        this.price = price;
+    private ProductEntity(Product.Create create) {
+        this.productName = create.getProductName();
+        this.category = create.getCategory();
+        this.saleType = create.getSaleType();
+        this.price = create.getPrice();
+        this.display = create.isDisplay();
     }
 
-    public static ProductEntity create(String productName, ProductCategory category, ProductSaleType saleType, long price) {
-        return new ProductEntity(productName, category, saleType, price);
+    public static ProductEntity create(Product.Create create) {
+        return new ProductEntity(create);
     }
 }
