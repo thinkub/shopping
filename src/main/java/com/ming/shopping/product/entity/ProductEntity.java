@@ -1,6 +1,7 @@
 package com.ming.shopping.product.entity;
 
 import com.ming.shopping.product.common.BooleanYnConverter;
+import com.ming.shopping.product.model.DiscountType;
 import com.ming.shopping.product.model.Product;
 import com.ming.shopping.product.model.ProductCategory;
 import com.ming.shopping.product.model.ProductSaleType;
@@ -10,6 +11,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -38,8 +40,17 @@ public class ProductEntity {
     @Enumerated(EnumType.STRING)
     private ProductSaleType saleType;
 
-    @Column(name = "price")
-    private long price;
+    @Column(name = "sale_price")
+    private long salePrice;
+
+    @Column(name = "origin_price")
+    private long originPrice;
+
+    @Enumerated(EnumType.STRING)
+    private DiscountType discountType;
+
+    @Column(name = "discount", precision = 10, scale = 3)
+    private BigDecimal discount;
 
     @Column(name = "display_yn")
     @Convert(converter = BooleanYnConverter.class)
@@ -53,7 +64,8 @@ public class ProductEntity {
         this.productName = create.getProductName();
         this.category = create.getCategory();
         this.saleType = create.getSaleType();
-        this.price = create.getPrice();
+        this.salePrice = create.getSalePrice();
+        this.originPrice = create.getOriginPrice();
         this.display = create.isDisplay();
     }
 

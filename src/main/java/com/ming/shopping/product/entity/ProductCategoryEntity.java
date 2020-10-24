@@ -1,6 +1,5 @@
 package com.ming.shopping.product.entity;
 
-import com.ming.shopping.product.model.Product;
 import com.ming.shopping.product.model.ProductCategory;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,4 +35,13 @@ public class ProductCategoryEntity {
     @CreatedDate
     @Column(name = "register_datetime")
     private LocalDateTime registerDatetime;
+
+    private ProductCategoryEntity (ProductEntity product, ProductCategory category) {
+        this.product = product;
+        this.category = category;
+    }
+
+    public static ProductCategoryEntity create(ProductEntity product, ProductCategory category) {
+        return new ProductCategoryEntity(product, category);
+    }
 }

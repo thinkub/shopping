@@ -25,7 +25,8 @@ public class Product {
     private String categoryDesc;
     private ProductSaleType saleType;
     private String saleTypeDesc;
-    private long price;
+    private long salePrice;
+    private long originPrice;
     @JsonFormat(pattern = "yyyy.MM.dd HH:mm:ss")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
@@ -64,7 +65,8 @@ public class Product {
         private String productName;
         private ProductCategory category;
         private ProductSaleType saleType;
-        private long price;
+        private long salePrice;
+        private long originPrice;
         private boolean display;
         private List<Long> subProductId;
     }
