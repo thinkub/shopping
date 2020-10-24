@@ -1,10 +1,7 @@
 package com.ming.shopping.product.service;
 
-import com.ming.shopping.product.entity.ProductCategoryEntity;
 import com.ming.shopping.product.entity.ProductEntity;
 import com.ming.shopping.product.model.Product;
-import com.ming.shopping.product.model.ProductCategory;
-import com.ming.shopping.product.repository.ProductCategoryRepository;
 import com.ming.shopping.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 
