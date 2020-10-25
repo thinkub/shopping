@@ -22,11 +22,15 @@ public abstract class AbstractProductCreateService {
         return productRepository.save(productEntity);
     }
 
-    ProductEntity findProductByProductId(Long productId) {
-        Optional<ProductEntity> productEntity = productRepository.findById(productId);
-        if (productEntity.isEmpty()) {
+    ProductEntity findProductAndValidSubProductByProductId(Long productId) {
+        Optional<ProductEntity> productOptional = productRepository.findById(productId);
+        if (productOptional.isEmpty()) {
             throw new RuntimeException("선택하신 서브 상품정보가 존재 하지 않습니다.");
         }
-        return productEntity.get();
+        ProductEntity productEntity = productOptional.get();
+        if (!productEntity.getSaleType().isSingle()) {
+            throw new RuntimeException("서브 상품정보은 단품 상품만 가능합니다.");
+        }
+        return productEntity;
     }
 }

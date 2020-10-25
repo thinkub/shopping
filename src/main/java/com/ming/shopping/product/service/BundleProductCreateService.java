@@ -49,7 +49,7 @@ public class BundleProductCreateService extends AbstractProductCreateService imp
         categoryMap.put(createProduct.getCategory(), ProductCategoryEntity.create(createProduct, createProduct.getCategory()));
 
         for (Product.CreateSub subProduct : create.getSubProducts()) {
-            ProductEntity productEntity = super.findProductByProductId(subProduct.getProductId());
+            ProductEntity productEntity = super.findProductAndValidSubProductByProductId(subProduct.getProductId());
             ProductPackageEntity packageEntity = ProductPackageEntity.createBundleProduct(createProduct, productEntity);
             productPackageRepository.save(packageEntity);
             categoryMap.put(productEntity.getCategory(), ProductCategoryEntity.create(createProduct, productEntity.getCategory()));

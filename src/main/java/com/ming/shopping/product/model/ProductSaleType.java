@@ -21,4 +21,8 @@ public enum ProductSaleType {
     public boolean isSingleForCreate() {
         return this == SINGLE || this == ONE_PLUS_ONE;
     }
+
+    public boolean isSingle() {
+        return this == SINGLE;
+    }
 }

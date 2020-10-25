@@ -66,7 +66,7 @@ public class InitService {
                 .collect(Collectors.toList());
 
         Product.Create create =
-                Product.Create.ofInit("가방2", ProductCategory.BAG, ProductSaleType.SALE_OPTION, 500000, 600000, true, DiscountType.NONE, new BigDecimal(0.0), subs);
+                Product.Create.ofInit("가방2 - 옵션상품(할인적용)", ProductCategory.BAG, ProductSaleType.SALE_OPTION, 500000, 600000, true, DiscountType.NONE, new BigDecimal(0.0), subs);
         ProductCreatable service = factory.get(ProductSaleType.SALE_OPTION);
         service.create(create);
     }

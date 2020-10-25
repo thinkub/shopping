@@ -1,6 +1,7 @@
 package com.ming.shopping.product.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -36,6 +37,7 @@ public class Product {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime registerDatetime;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Product> subProducts;
 
     private Product(ProductPackageEntity productPackageEntity) {
