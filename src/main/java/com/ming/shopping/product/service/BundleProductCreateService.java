@@ -4,13 +4,17 @@ import com.ming.shopping.product.entity.ProductCategoryEntity;
 import com.ming.shopping.product.entity.ProductEntity;
 import com.ming.shopping.product.entity.ProductPackageEntity;
 import com.ming.shopping.product.model.Product;
+import com.ming.shopping.product.model.ProductCategory;
 import com.ming.shopping.product.model.ProductSaleType;
 import com.ming.shopping.product.repository.ProductCategoryRepository;
 import com.ming.shopping.product.repository.ProductPackageRepository;
 import com.ming.shopping.product.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -36,23 +40,23 @@ public class BundleProductCreateService extends AbstractProductCreateService imp
     }
 
     @Override
+    @Transactional
     public Long create(Product.Create create) {
         if (create.getSubProducts().size() < 2) {
             throw new RuntimeException("묶음 상품은 최소 2개의 서브상품을 등록해야 합니다.");
         }
         ProductEntity createProduct = super.createProduct(create);
 
-        Set<ProductCategoryEntity> categoryEntities = new HashSet<>();
-        categoryEntities.add(ProductCategoryEntity.create(createProduct, createProduct.getCategory()));
+        Map<ProductCategory, ProductCategoryEntity> categoryMap = new HashMap<>();
+        categoryMap.put(createProduct.getCategory(), ProductCategoryEntity.create(createProduct, createProduct.getCategory()));
 
         for (Product.CreateSub subProduct : create.getSubProducts()) {
             ProductEntity productEntity = super.findProductByProductId(subProduct.getProductId());
             ProductPackageEntity packageEntity = ProductPackageEntity.createBundleProduct(createProduct, productEntity);
             productPackageRepository.save(packageEntity);
-
-            categoryEntities.add(ProductCategoryEntity.create(productEntity, productEntity.getCategory()));
+            categoryMap.put(productEntity.getCategory(), ProductCategoryEntity.create(createProduct, productEntity.getCategory()));
         }
-        productCategoryRepository.saveAll(categoryEntities);
+        productCategoryRepository.saveAll(categoryMap.values());
         return createProduct.getProductId();
     }
 }

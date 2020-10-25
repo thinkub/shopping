@@ -40,17 +40,7 @@
     "discount": 0.0
   },
   {
-    "productName": "청바지",
-    "category": "PANTS",
-    "saleType": "SINGLE",
-    "salePrice": 30000,
-    "originPrice": 33000,
-    "display": true,
-    "discountType": "NONE",
-    "discount": 0.0
-  },
-  {
-    "productName": "슬랙스",
+    "productName": "바지",
     "category": "PANTS",
     "saleType": "SINGLE",
     "salePrice": 20000,

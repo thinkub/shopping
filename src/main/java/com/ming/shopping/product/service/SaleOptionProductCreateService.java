@@ -10,6 +10,8 @@ import com.ming.shopping.product.repository.ProductPackageRepository;
 import com.ming.shopping.product.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 /**
  * @author by Ming(thinkub0219@gmail.com) on 2020. 10. 24..
  */
@@ -33,6 +35,7 @@ public class SaleOptionProductCreateService extends AbstractProductCreateService
     }
 
     @Override
+    @Transactional
     public Long create(Product.Create create) {
         ProductEntity createProduct = super.createProduct(create);
 
