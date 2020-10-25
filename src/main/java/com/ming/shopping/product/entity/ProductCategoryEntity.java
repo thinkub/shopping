@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 public class ProductCategoryEntity {
     @Id
     @Column(name = "product_category_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productCategoryId;
 
     @ManyToOne(fetch = FetchType.LAZY)

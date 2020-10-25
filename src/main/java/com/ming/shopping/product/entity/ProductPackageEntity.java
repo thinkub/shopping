@@ -1,6 +1,7 @@
 package com.ming.shopping.product.entity;
 
 import com.ming.shopping.product.model.DiscountType;
+import com.ming.shopping.product.model.Product;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -20,7 +21,7 @@ import java.time.LocalDateTime;
 public class ProductPackageEntity {
     @Id
     @Column(name = "product_package_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productPackageId;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -45,9 +46,22 @@ public class ProductPackageEntity {
     private ProductPackageEntity (ProductEntity mainProduct, ProductEntity subProduct) {
         this.mainProduct = mainProduct;
         this.subProduct = subProduct;
+        this.discountType = DiscountType.NONE;
+        this.discount = new BigDecimal(0.0);
     }
 
-    public static ProductPackageEntity create(ProductEntity mainProduct, ProductEntity subProduct) {
+    private ProductPackageEntity(ProductEntity mainProduct, ProductEntity subProduct, Product.CreateSub createSub) {
+        this.mainProduct = mainProduct;
+        this.subProduct = subProduct;
+        this.discountType = createSub.getDiscountType();
+        this.discount = createSub.getDiscount();
+    }
+
+    public static ProductPackageEntity createBundleProduct(ProductEntity mainProduct, ProductEntity subProduct) {
         return new ProductPackageEntity(mainProduct, subProduct);
+    }
+
+    public static ProductPackageEntity createSaleOptionProduct(ProductEntity mainProduct, ProductEntity subProduct, Product.CreateSub createSub) {
+        return new ProductPackageEntity(mainProduct, subProduct, createSub);
     }
 }

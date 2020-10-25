@@ -13,3 +13,11 @@ spring:
     generate-ddl: true
 server:
   port: 8081
+
+logging:
+  level:
+    com.saltlux.kentv: DEBUG
+    org:
+      hibernate:
+        type: trace
+        SQL: DEBUG

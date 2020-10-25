@@ -37,14 +37,17 @@ public class BundleProductCreateService extends AbstractProductCreateService imp
 
     @Override
     public Long create(Product.Create create) {
+        if (create.getSubProducts().size() < 2) {
+            throw new RuntimeException("묶음 상품은 최소 2개의 서브상품을 등록해야 합니다.");
+        }
         ProductEntity createProduct = super.createProduct(create);
 
         Set<ProductCategoryEntity> categoryEntities = new HashSet<>();
         categoryEntities.add(ProductCategoryEntity.create(createProduct, createProduct.getCategory()));
 
-        for (Long productId : create.getSubProductId()) {
-            ProductEntity productEntity = super.findProductByProductId(productId);
-            ProductPackageEntity packageEntity = ProductPackageEntity.create(createProduct, productEntity);
+        for (Product.CreateSub subProduct : create.getSubProducts()) {
+            ProductEntity productEntity = super.findProductByProductId(subProduct.getProductId());
+            ProductPackageEntity packageEntity = ProductPackageEntity.createBundleProduct(createProduct, productEntity);
             productPackageRepository.save(packageEntity);
 
             categoryEntities.add(ProductCategoryEntity.create(productEntity, productEntity.getCategory()));

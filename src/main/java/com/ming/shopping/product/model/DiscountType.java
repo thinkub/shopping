@@ -5,6 +5,6 @@ package com.ming.shopping.product.model;
  */
 public enum DiscountType {
     RATE,
-    PRICE,
+    VALUE,
     NONE
 }

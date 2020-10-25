@@ -18,18 +18,6 @@ public enum ProductSaleType {
     private final String desc;
     private final ProductSaleConditionType saleConditionType;
 
-    public boolean isBundle() {
-        return this == BUNDLE;
-    }
-
-    public boolean isSingle() {
-        return this == SINGLE;
-    }
-
-    public boolean isSaleOption() {
-        return this == SALE_OPTION;
-    }
-
     public boolean isSingleForCreate() {
         return this == SINGLE || this == ONE_PLUS_ONE;
     }

@@ -39,9 +39,9 @@ public class SaleOptionProductCreateService extends AbstractProductCreateService
         ProductCategoryEntity categoryEntity = ProductCategoryEntity.create(createProduct, createProduct.getCategory());
         productCategoryRepository.save(categoryEntity);
 
-        for (Long productId : create.getSubProductId()) {
-            ProductEntity productEntity = super.findProductByProductId(productId);
-            ProductPackageEntity packageEntity = ProductPackageEntity.create(createProduct, productEntity);
+        for (Product.CreateSub subProduct : create.getSubProducts()) {
+            ProductEntity productEntity = super.findProductByProductId(subProduct.getProductId());
+            ProductPackageEntity packageEntity = ProductPackageEntity.createSaleOptionProduct(createProduct, productEntity, subProduct);
             productPackageRepository.save(packageEntity);
         }
         return createProduct.getProductId();

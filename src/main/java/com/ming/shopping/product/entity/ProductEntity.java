@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
 public class ProductEntity {
     @Id
     @Column(name = "product_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
 
     @Column(name = "product_name", length = 100, nullable = false)
@@ -40,19 +40,20 @@ public class ProductEntity {
     @Enumerated(EnumType.STRING)
     private ProductSaleType saleType;
 
-    @Column(name = "sale_price")
+    @Column(name = "sale_price", nullable = false)
     private long salePrice;
 
-    @Column(name = "origin_price")
+    @Column(name = "origin_price", nullable = false)
     private long originPrice;
 
+    @Column(name = "discount_type", length = 10, nullable = false)
     @Enumerated(EnumType.STRING)
     private DiscountType discountType;
 
-    @Column(name = "discount", precision = 10, scale = 3)
+    @Column(name = "discount", nullable = false, precision = 10, scale = 3)
     private BigDecimal discount;
 
-    @Column(name = "display_yn")
+    @Column(name = "display_yn", nullable = false)
     @Convert(converter = BooleanYnConverter.class)
     private boolean display;
 
@@ -67,6 +68,8 @@ public class ProductEntity {
         this.salePrice = create.getSalePrice();
         this.originPrice = create.getOriginPrice();
         this.display = create.isDisplay();
+        this.discountType = create.getDiscountType();
+        this.discount = create.getDiscount();
     }
 
     public static ProductEntity create(Product.Create create) {
