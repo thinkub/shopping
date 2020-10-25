@@ -25,10 +25,10 @@ public class ProductCategoryEntity {
     private Long productCategoryId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product;
 
-    @Column(name = "category")
+    @Column(name = "category", nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
     private ProductCategory category;
 

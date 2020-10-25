@@ -53,7 +53,7 @@ public class ProductEntity {
     @Column(name = "discount", nullable = false, precision = 10, scale = 3)
     private BigDecimal discount;
 
-    @Column(name = "display_yn", nullable = false)
+    @Column(name = "display_yn", nullable = false, length = 1)
     @Convert(converter = BooleanYnConverter.class)
     private boolean display;
 
