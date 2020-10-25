@@ -18,11 +18,13 @@ java -jar build/libs/*.jar
 ## Api Documentation (Swagger)
 `http://localhost:8081/swagger-ui.html`
 
+## ClassDiagram
+[LINK](https://github.com/thinkub/shopping/blob/main/classDiagram.png)
+
 ## Table Schema
 
-#### 상품 (Table : product)
-* 상품 기본정보 Table
-
+### 상품 (Table : product)
+#### 상품 기본정보 Table
 | column name | type | length | pk | fk | null | desc |
 | --- | --- | --- | --- | --- | --- | --- | 
 | productId | BigInt | | Y | N | N | 상품 아이디 |
@@ -36,8 +38,8 @@ java -jar build/libs/*.jar
 | display_yn | varchar | 1 | N | N | N | 상품 노출 여부 |
 | register_datetime | date | | N | N | N | 등록일시 |
 
-#### 상품 카테고리 (Table : product_category)
-* 상품별 카테고리 정보 -> 상품은 n개의 카테고리 정보를 가질 수 있음
+### 상품 카테고리 (Table : product_category)
+#### 상품별 카테고리 정보 -> 상품은 n개의 카테고리 정보를 가질 수 있음
 
 | column name | type | length | pk | fk | null | desc | 
 | --- | --- | --- | --- | --- | --- | --- |
@@ -46,8 +48,8 @@ java -jar build/libs/*.jar
 | category | varchar | 20 | N | N | N | 상품 카테고리 |
 | register_datetime | date | | N | N | N | 등록일시 |
 
-#### 상품 패키지 (table : product_package)
- * 묶음상품, 서브 상품 정보 Table
+### 상품 패키지 (table : product_package)
+#### 묶음상품, 서브 상품 정보 Table
  
 | column name | type | length | pk | fk | null | desc |
 | --- | --- | --- | --- | --- | --- | --- | 
