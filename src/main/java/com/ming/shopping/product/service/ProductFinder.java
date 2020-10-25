@@ -33,8 +33,7 @@ public class ProductFinder {
         }
         ProductEntity productEntity = productOptional.get();
         List<ProductPackageEntity> productPackageEntities = productPackageRepository.findByMainProduct(productEntity);
-        List<ProductEntity> subProducts = productPackageEntities.stream().map(ProductPackageEntity::getSubProduct).collect(Collectors.toList());
 
-        return Product.ofDetail(productEntity, subProducts);
+        return Product.ofDetail(productEntity, productPackageEntities);
     }
 }

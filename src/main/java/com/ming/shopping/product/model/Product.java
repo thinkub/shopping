@@ -6,10 +6,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.ming.shopping.product.entity.ProductEntity;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.ming.shopping.product.entity.ProductPackageEntity;
+import lombok.*;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
@@ -40,17 +38,18 @@ public class Product {
     private LocalDateTime registerDatetime;
     private List<Product> subProducts;
 
-    private Product(ProductEntity entity) {
+    private Product(ProductPackageEntity productPackageEntity) {
+        ProductEntity entity = productPackageEntity.getSubProduct();
         this.productId = entity.getProductId();
         this.productName = entity.getProductName();
         this.category = entity.getCategory();
         this.categoryDesc = entity.getCategory().getDesc();
         this.saleType = entity.getSaleType();
         this.saleTypeDesc = entity.getSaleType().getDesc();
-        this.salePrice = entity.getSalePrice();
+        this.salePrice = productPackageEntity.getDiscountType().compute(entity.getSalePrice(), productPackageEntity.getDiscount());
         this.originPrice = entity.getOriginPrice();
-        this.discountType = entity.getDiscountType();
-        this.discount = entity.getDiscount();
+        this.discountType = productPackageEntity.getDiscountType();
+        this.discount = productPackageEntity.getDiscount();
         this.registerDatetime = entity.getRegisterDatetime();
     }
 
@@ -69,12 +68,12 @@ public class Product {
         this.subProducts = subProducts;
     }
 
-    public static Product ofDetail(ProductEntity main, List<ProductEntity> subs) {
-        List<Product> subProducts = subs.stream().map(Product::ofEntity).collect(Collectors.toList());
+    public static Product ofDetail(ProductEntity main, List<ProductPackageEntity> subs) {
+        List<Product> subProducts = subs.stream().map(Product::ofSubProduct).collect(Collectors.toList());
         return new Product(main, subProducts);
     }
 
-    private static Product ofEntity(ProductEntity entity) {
+    private static Product ofSubProduct(ProductPackageEntity entity) {
         return new Product(entity);
     }
 
@@ -107,6 +106,9 @@ public class Product {
     }
 
     @Getter
+    @Builder(access = AccessLevel.PRIVATE)
+    @NoArgsConstructor
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class Create {
         private String productName;
         private ProductCategory category;
@@ -117,12 +119,39 @@ public class Product {
         private DiscountType discountType;
         private BigDecimal discount;
         private List<CreateSub> subProducts;
+
+        public static Create ofInit(String productName, ProductCategory category, ProductSaleType saleType,
+                                    long salePrice, long originPrice, boolean display, DiscountType discountType,
+                                    BigDecimal discount, List<CreateSub> subProducts) {
+            return Create.builder()
+                    .productName(productName)
+                    .category(category)
+                    .saleType(saleType)
+                    .salePrice(salePrice)
+                    .originPrice(originPrice)
+                    .display(display)
+                    .discountType(discountType)
+                    .discount(discount)
+                    .subProducts(subProducts)
+                    .build();
+        }
     }
 
     @Getter
+    @Builder(access = AccessLevel.PRIVATE)
+    @NoArgsConstructor
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class CreateSub {
         private Long productId;
         private DiscountType discountType;
         private BigDecimal discount;
+
+        public static CreateSub ofInit(Long productId, DiscountType discountType, BigDecimal discount) {
+            return CreateSub.builder()
+                    .productId(productId)
+                    .discountType(discountType)
+                    .discount(discount)
+                    .build();
+        }
     }
 }

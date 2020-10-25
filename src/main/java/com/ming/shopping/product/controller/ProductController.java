@@ -4,6 +4,7 @@ import com.ming.shopping.product.component.ProductCreateServiceFactory;
 import com.ming.shopping.product.model.Product;
 import com.ming.shopping.product.model.ProductCategory;
 import com.ming.shopping.product.model.ProductSaleType;
+import com.ming.shopping.product.service.ProductCreatable;
 import com.ming.shopping.product.service.ProductFinder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -11,10 +12,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -50,5 +48,12 @@ public class ProductController {
     public ResponseEntity<Product> findProduct(@PathVariable Long productId) {
         Product product = productFinder.findProduct(productId);
         return ResponseEntity.ok().body(product);
+    }
+
+    @PostMapping("/product")
+    public ResponseEntity<Long> createProduct(@RequestBody Product.Create create) {
+        ProductCreatable service = createServiceFactory.get(create.getSaleType());
+        Long productId = service.create(create);
+        return ResponseEntity.ok().body(productId);
     }
 }

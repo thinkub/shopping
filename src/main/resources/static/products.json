@@ -1,0 +1,81 @@
+[
+  {
+    "productName": "신발1",
+    "category": "SHOES",
+    "saleType": "SINGLE",
+    "salePrice": 50000,
+    "originPrice": 60000,
+    "display": true,
+    "discountType": "NONE",
+    "discount": 0.0
+  },
+  {
+    "productName": "가방",
+    "category": "BAG",
+    "saleType": "SINGLE",
+    "salePrice": 200000,
+    "originPrice": 200000,
+    "display": true,
+    "discountType": "NONE",
+    "discount": 0.0
+  },
+  {
+    "productName": "티셔츠",
+    "category": "T_SHIRT",
+    "saleType": "SINGLE",
+    "salePrice": 20000,
+    "originPrice": 22000,
+    "display": true,
+    "discountType": "NONE",
+    "discount": 0.0
+  },
+  {
+    "productName": "티셔츠",
+    "category": "T_SHIRT",
+    "saleType": "ONE_PLUS_ONE",
+    "salePrice": 30000,
+    "originPrice": 60000,
+    "display": true,
+    "discountType": "NONE",
+    "discount": 0.0
+  },
+  {
+    "productName": "청바지",
+    "category": "PANTS",
+    "saleType": "SINGLE",
+    "salePrice": 30000,
+    "originPrice": 33000,
+    "display": true,
+    "discountType": "NONE",
+    "discount": 0.0
+  },
+  {
+    "productName": "슬랙스",
+    "category": "PANTS",
+    "saleType": "SINGLE",
+    "salePrice": 20000,
+    "originPrice": 20000,
+    "display": true,
+    "discountType": "NONE",
+    "discount": 0.0
+  },
+  {
+    "productName": "모자",
+    "category": "HAT",
+    "saleType": "SINGLE",
+    "salePrice": 10000,
+    "originPrice": 60000,
+    "display": true,
+    "discountType": "NONE",
+    "discount": 0.0
+  },
+  {
+    "productName": "반지",
+    "category": "RING",
+    "saleType": "SINGLE",
+    "originPrice": 60000,
+    "display": true,
+    "discountType": "NONE",
+    "discount": 0.0
+  }
+]

@@ -3,6 +3,7 @@ package com.ming.shopping.product.entity;
 import com.ming.shopping.product.model.DiscountType;
 import com.ming.shopping.product.model.Product;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 @Getter
 @Table(name = "product_package")
 @EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor
 public class ProductPackageEntity {
     @Id
     @Column(name = "product_package_id")
