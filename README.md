@@ -23,7 +23,8 @@ java -jar build/libs/*.jar
 #### 상품 (Table : product)
 * 상품 기본정보 Table
 
-| column name | type | length | pk | fk | null | desc | 
+| column name | type | length | pk | fk | null | desc |
+| --- | --- | --- | --- | --- | --- | --- | 
 | productId | BigInt | | Y | N | N | 상품 아이디 |
 | productName | varchar | 100 | N | N | N | 상품명 |
 | main_category | varchar | 20 | N | N | N | 상품 카테고리 |
@@ -39,6 +40,7 @@ java -jar build/libs/*.jar
 * 상품별 카테고리 정보 -> 상품은 n개의 카테고리 정보를 가질 수 있음
 
 | column name | type | length | pk | fk | null | desc | 
+| --- | --- | --- | --- | --- | --- | --- |
 | product_category_id | BigInt | | Y | N | N | 상품 카테고리 아이디 |
 | product_id | varchar | 100 | N | Y | N | 상품 아이디(product.productId) |
 | category | varchar | 20 | N | N | N | 상품 카테고리 |
@@ -47,7 +49,8 @@ java -jar build/libs/*.jar
 #### 상품 패키지 (table : product_package)
  * 묶음상품, 서브 상품 정보 Table
  
-| column name | type | length | pk | fk | null | desc | 
+| column name | type | length | pk | fk | null | desc |
+| --- | --- | --- | --- | --- | --- | --- | 
 | product_package_id | BigInt | | Y | N | N | 상품 카테고리 아이디 |
 | main_product_id | BigInt | | N | Y | N | 메인 상품 아이디(product.productId) |
 | sub_product_id | BigInt | | N | Y | N | 서브 상품 아이디(product.productId) |
